@@ -10,6 +10,8 @@ import { CompanyActivity } from '../features/offers/CompanyActivity';
 import { PerformanceDashboard } from '../features/analytics/PerformanceDashboard';
 import './marketplace-layout.css';
 
+const pageTitles = { feed:'자재 매칭 피드', register:'자재 게시물 등록', activity:'내 활동', performance:'우리 기업 홍보 성과' };
+
 async function loadScreen(tab) {
   const session = await request('/auth/session').catch(error=>{
     if (error.status===401) return { userId:null };
@@ -74,7 +76,7 @@ export function MakerLinkApp() {
       onContact={()=>perform(async()=>{ await request('/posts/'+detail.id+'/events','POST',{eventType:'CONTACT_CLICK'}); setComposing(true); })}
       onSend={message=>perform(async()=>{ await request('/offers','POST',{postId:detail.id,message}); navigate('activity','상대 기업에 전달했습니다.'); })}/>;
     if (tab==='feed') return <MarketplaceFeed posts={posts} onOpen={openPost}/>;
-    if (!session.userId) return <section className="page-content"><h1>로그인이 필요합니다</h1><p>상단의 카카오 로그인으로 계속해 주세요.</p></section>;
+    if (!session.userId) return <section className="page-content"><p>상단의 카카오 로그인으로 계속해 주세요.</p></section>;
     if (!company) return <section className="page-content"><p>첫 이용 시 소속 기업을 등록해 주세요.</p><CompanyProfileForm onSave={saveCompany}/></section>;
     if (tab==='register') return <MaterialPostForm onSave={values=>perform(async()=>{ await request('/posts','POST',values); navigate('feed','게시물이 등록되었습니다.'); })}/>;
     if (tab==='performance') return <PerformanceDashboard totals={dashboard.totals} posts={dashboard.items}/>;
@@ -84,7 +86,9 @@ export function MakerLinkApp() {
       })}/>;
   }
   return <main className="app-shell"><fieldset className="screen-controls" disabled={busy}>
-    <AppHeader session={screen?.session} onLogout={()=>perform(async()=>{await request('/auth/logout','POST');navigate('feed','로그아웃했습니다.');})}/>
+    <AppHeader title={detail ? (detail.type === 'REQUEST' ? '자재 요청 상세' : '공급 품목 상세') : pageTitles[tab]}
+      companyName={screen?.company?.name} session={screen?.session}
+      onLogout={()=>perform(async()=>{await request('/auth/logout','POST');navigate('feed','로그아웃했습니다.');})}/>
     {error && <p className="feedback error" role="alert">{error}</p>}
     {notice && <p className="feedback" role="status">{notice}</p>}
     {renderPage()}<BottomNavigation activeTab={tab} onChange={navigate}/>
