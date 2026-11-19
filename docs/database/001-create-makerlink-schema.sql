@@ -1,0 +1,54 @@
+CREATE DATABASE IF NOT EXISTS makerlink CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE makerlink;
+
+CREATE TABLE users (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  kakao_id VARCHAR(100) NOT NULL UNIQUE,
+  nickname VARCHAR(100) NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE companies (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  user_id BIGINT NOT NULL UNIQUE,
+  company_name VARCHAR(150) NOT NULL,
+  business_type VARCHAR(100) NOT NULL,
+  region VARCHAR(100) NULL,
+  introduction TEXT NULL,
+  CONSTRAINT fk_companies_user FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE posts (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  company_id BIGINT NOT NULL,
+  post_type ENUM('REQUEST', 'SUPPLY') NOT NULL,
+  category VARCHAR(80) NOT NULL,
+  title VARCHAR(200) NOT NULL,
+  specification VARCHAR(255) NULL,
+  quantity INT NULL,
+  due_date DATE NULL,
+  status ENUM('OPEN', 'NEGOTIATING', 'MATCHED', 'CLOSED') NOT NULL DEFAULT 'OPEN',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_posts_company FOREIGN KEY (company_id) REFERENCES companies(id)
+);
+
+CREATE TABLE post_events (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  post_id BIGINT NOT NULL,
+  user_id BIGINT NULL,
+  event_type ENUM('VIEW', 'CONTACT_CLICK') NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_post_events_post FOREIGN KEY (post_id) REFERENCES posts(id),
+  CONSTRAINT fk_post_events_user FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE offers (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  post_id BIGINT NOT NULL,
+  company_id BIGINT NOT NULL,
+  message TEXT NOT NULL,
+  status ENUM('PENDING', 'ACCEPTED', 'REJECTED') NOT NULL DEFAULT 'PENDING',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_offers_post FOREIGN KEY (post_id) REFERENCES posts(id),
+  CONSTRAINT fk_offers_company FOREIGN KEY (company_id) REFERENCES companies(id)
+);

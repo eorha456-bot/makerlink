@@ -1,0 +1,11 @@
+{
+  "name": "makerlink-b2b-material-matching",
+  "private": true,
+  "workspaces": ["apps/web", "apps/api"],
+  "scripts": {
+    "start": "node apps/api/src/start-deployment.js",
+    "dev:web": "npm run dev --workspace=@makerlink/web",
+    "dev:api": "npm run dev --workspace=@makerlink/api",
+    "build": "npm run build --workspace=@makerlink/web"
+  }
+}
