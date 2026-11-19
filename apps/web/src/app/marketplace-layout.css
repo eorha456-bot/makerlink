@@ -1,18 +1,48 @@
-.screen-controls { min-width:0; margin:0; padding:0; border:0; }
-.page-content h1 {font-size:1.35rem; margin:0 0 18px}
-.page-content h2 {font-size:1.05rem; margin:18px 0 12px}
-.page-content form { display:grid; gap:14px; }
-.page-content label { display:grid; gap:6px; font-weight:600; font-size:.9rem; }
-.page-content input,.page-content textarea,.page-content select { width:100%; font:inherit; font-size:16px; color:#19392f; padding:10px; border:1px solid #9bb1a6; background:white; border-radius:5px; }
-.page-content textarea { min-height:84px; resize:vertical; }
-.primary-action { background:#176b52; color:white; border:0; padding:12px 16px; border-radius:5px; font-weight:600; }
-.screen-controls:disabled button { opacity:.7; cursor:wait; }
-.page-content .filter-row { margin:12px 0; }
-.post-detail,.page-content details { margin-top:18px; }
-.page-content dl div {display:grid;grid-template-columns:5rem 1fr;gap:8px;padding:9px 0;border-bottom:1px solid #e1e9e5}
-.page-content dd {margin:0}
-.page-content article { overflow-wrap:anywhere; }
-.page-content article p {white-space:pre-line}
-.page-content summary {cursor:pointer;padding:12px 0}
-.feedback {margin:12px 16px;padding:10px;background:#e0f0e9;color:#164634}
-.feedback.error {background:#fff0ed;color:#823720}
+.page-content { padding: 20px 16px; overflow-wrap: anywhere; }
+.page-content h2 { margin: 22px 0 12px; font-size: 17px; letter-spacing: -.035em; }
+.page-content h3 { font-size: 18px; margin: 12px 0 5px; letter-spacing: -.04em; }
+.page-content small, .post-meta, .post-facts dt, .metric-card span { color: var(--steel); font-size: 13px; }
+.page-content p { line-height: 1.55; }
+.page-content input, .page-content select, .page-content textarea {
+  min-width: 0; width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid #b5c4d0;
+  border-radius: 8px; background: white; color: var(--navy); font-size: 16px;
+}
+.page-content textarea { min-height: 90px; resize: vertical; }
+.filter-row { display: flex; gap: 5px; overflow-x: auto; margin: 10px 0 18px; padding: 3px; }
+.filter-row .filter { flex: 1 0 auto; padding-inline: 8px; }
+.filter { background: white; border: 1px solid var(--line); padding-inline: 11px; font-size: 13px; }
+.filter.active { background: var(--navy); color: white; }
+.marketplace-post, .form-panel, .metric-card, .analytics-row, .page-content details {
+  padding: 16px; border: 1px solid var(--line); background: var(--surface); border-radius: var(--card-radius);
+}
+.marketplace-post + .marketplace-post, .analytics-row + .analytics-row { margin-top: 10px; }
+.status-row, .marketplace-post footer, .analytics-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.post-badge, .deadline-badge {
+  display: inline-flex; border-radius: 5px; background: var(--soft); color: #2d4b6c;
+  padding: 4px 8px; font-size: 12px; font-weight: 700;
+}
+.deadline-badge { color: #814700; background: #fff2df; }
+.page-content .post-title { font-size: 21px; line-height: 1.35; margin: 12px 0 3px; }
+.post-meta { margin: 0; }
+.post-facts { display: grid; grid-template-columns: 1.3fr .75fr 1fr; border-block: 1px solid var(--line); padding: 11px 0; gap: 10px; margin: 14px 0; }
+.post-facts div { min-width: 0; }
+.post-facts dd { margin: 4px 0 0; font-weight: 650; font-size: 14px; white-space: pre-line; }
+.page-content form { display: grid; gap: 16px; }
+.page-content label { display: grid; gap: 7px; font-size: 14px; font-weight: 650; }
+.primary-action { color: #222936; background: var(--action); }
+.post-detail { margin-top: 12px; }
+.post-detail .primary-action { width: 100%; }
+.page-content details { margin-top: 18px; padding: 0 16px; }
+.page-content summary { min-height: 44px; cursor: pointer; padding: 12px 0; font-weight: 650; }
+.page-content details form { margin-bottom: 16px; }
+.page-content form h2 { margin: 0; }
+.offer-message { white-space: pre-line; padding-block: 12px; border-top: 1px solid var(--line); }
+.metric-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.metric-card strong { display: block; margin-top: 6px; font-size: 28px; letter-spacing: -.04em; }
+.metric-card:last-child { background: var(--navy); }
+.metric-card:last-child strong { color: white; }
+.metric-card:last-child span { color: #d6e3ee; }
+.analytics-row strong, .analytics-row span { display: block; }
+.analytics-row span { font-size: 13px; line-height: 1.6; margin-top: 6px; color: var(--steel); }
+.analytics-row b { flex-shrink: 0; font-size: 18px; }
+.analytics-note { display: block; margin-top: 12px; }

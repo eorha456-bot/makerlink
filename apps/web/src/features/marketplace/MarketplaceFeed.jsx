@@ -6,7 +6,7 @@ export function MarketplaceFeed({ posts, onOpen }) {
   const [keyword, setKeyword] = useState('');
   const filtered = posts.filter(p => (category === '전체' || category === p.category) &&
     [p.title,p.company,p.specification].join(' ').toLowerCase().includes(keyword.trim().toLowerCase()));
-  return <section className="page-content"><h1>자재 매칭 피드</h1>
+  return <section className="page-content">
     <input type="search" aria-label="품목·규격·기업 검색" placeholder="품목·규격·기업 검색" value={keyword} onChange={e=>setKeyword(e.target.value)}/>
     <div className="filter-row">{['전체',...categories].map(c=><button key={c} aria-pressed={c===category} className={'filter '+(c===category?'active':'')} onClick={()=>setCategory(c)}>{c}</button>)}</div>
     <div className="post-list">{filtered.map(post=><MarketplacePostCard key={post.id} post={post} onOpen={onOpen}/>)}</div>
